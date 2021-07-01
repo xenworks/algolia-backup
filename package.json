@@ -1,0 +1,32 @@
+{
+  "name": "algolia-backup",
+  "version": "0.0.0",
+  "description": "A tool that helps to backup Algolia indices",
+  "scripts": {
+    "start": "yarn babel-node ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xenworks/algolia-backup.git"
+  },
+  "keywords": [
+    "algolia",
+    "backup",
+    "tool"
+  ],
+  "author": "Xen Works Developers <mnt@xen.works> (https://xen.works/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xenworks/algolia-backup/issues"
+  },
+  "homepage": "https://github.com/xenworks/algolia-backup#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.7"
+  },
+  "dependencies": {
+    "algoliasearch": "^4.10.2",
+    "dotenv": "^10.0.0"
+  }
+}
