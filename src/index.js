@@ -3,8 +3,8 @@ import { promises } from 'fs';
 import { join } from 'path';
 
 require("dotenv").config();
-
 ensureNonEmptyArgs("MODE", "ALGOLIA_APP_ID", "ALGOLIA_ADMIN_KEY", "OUTPUT_PATH");
+
 const algoliaClient = algoliasearch(
   process.env.ALGOLIA_APP_ID,
   process.env.ALGOLIA_ADMIN_KEY
@@ -37,16 +37,22 @@ async function exportData() {
 
 async function importData() {
   const files = await promises.readdir(process.env.OUTPUT_PATH);
-  for (const indexName of files) {
-    const fqdn = join(process.env.OUTPUT_PATH, indexName);
+  for (const fileName of files) {
+    const fqdn = join(process.env.OUTPUT_PATH, fileName);
+
+    const indexName = fileName.replace(".json", "");
+    console.log(`Importing ${indexName}`)
+
     const { records, settings } = JSON.parse(await promises.readFile(fqdn));
     const index = algoliaClient.initIndex(indexName);
+
     if (settings) {
       await index.setSettings(settings);
     }
 
     if (records && records.length > 0) {
       await index.saveObjects(records, { autoGenerateObjectIDIfNotExist: false });
+
     }
   }
 }
